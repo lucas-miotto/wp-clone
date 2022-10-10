@@ -1,4 +1,4 @@
-<?php 
+<?php
 require 'config.php';
 require 'src/Artigo.php';
 
@@ -7,7 +7,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 $obj_artigo = new Artigo($mysql);
-$artigo = $obj_artigo->encontrePorId($_GET['id']); 
+$artigo = $obj_artigo->encontrePorId($_GET['id']);
 
 
 ?>
@@ -18,6 +18,7 @@ $artigo = $obj_artigo->encontrePorId($_GET['id']);
 <head>
     <title>Meu Blog</title>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 

@@ -1,13 +1,13 @@
 <?php
-require '../config.php';
-include '../src/Artigo.php';
-require '../src/redireciona.php';
+require '../../config.php';
+require '../../src/Artigo.php';
+require '../../src/redireciona.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $artigo = new Artigo($mysql);
     $artigo->remover($_POST['id']);
 
-    redireciona('/phpweb-master/admin/index.php');
+    redireciona('/wp-clone/wp-clone/admin/index.php');
 }
 
 ?>
@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="pt-br">
 
 <head>
-    <link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="stylesheet" type="text/css" href="../../style.css">
     <meta charset="UTF-8">
     <title>Excluir Artigo</title>
 </head>
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div id="container">
         <h1>Você realmente deseja excluir o artigo?</h1>
-        <form method="post" action="excluir-artigo.php">
+        <form method="post" action="excluir.php">
             <p>
                 <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>" />
                 <button class="botao">Excluir</button>
