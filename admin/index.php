@@ -49,16 +49,25 @@ $autores = $autor->exibirTodos();
         <div>
 
             <?php foreach ($artigos as $art) { ?>
+                <?php $cat = $categoria->encontrePorId($art['categoria_id']); ?>
+                <?php $aut = $autor->encontrePorId($art['autor_id']); ?>
+
                 <div id="artigo-admin">
-                    <p><?php echo $art['titulo']; ?></p>
+                    <p>
+                        <?php echo $art['titulo']; ?>.
+                        R: <?php echo $art['resumo']; ?>.
+                        Data: <?php if (!empty($art['data'])) echo date('d-m-Y', strtotime($art['data'])); ?>
+                    </p>
+                    <p>
+                        Categoria: <?= $cat['titulo']; ?> <br>
+                        Autor: <?= $aut['titulo']; ?>
+                    </p>
                     <nav>
                         <a class="botao" href="artigo/editar.php?id=<?php echo $art['id']; ?>">Editar</a>
                         <a class="botao" href="artigo/excluir.php?id=<?php echo $art['id']; ?>">Excluir</a>
                     </nav>
                 </div>
-
             <?php } ?>
-
         </div>
         <a class="botao botao-block" href="artigo/adicionar.php">Adicionar Artigo</a>
     </div>

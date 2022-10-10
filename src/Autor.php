@@ -22,10 +22,9 @@ class Autor
     {
         $selecionaAutor = $this->mysql->prepare("SELECT id, titulo FROM autores WHERE id = ?");
         $selecionaAutor->bind_param('s', $id);
-        $selecionaAutor->bind_param('s', $id);
         $selecionaAutor->execute();
-        $categoria = $selecionaAutor->get_result()->fetch_assoc();
-        return $categoria;
+        $autor = $selecionaAutor->get_result()->fetch_assoc();
+        return $autor;
     }
 
     public function adicionar(string $titulo): void

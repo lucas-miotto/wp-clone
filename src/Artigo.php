@@ -1,5 +1,6 @@
 <?php
 
+
 class Artigo
 {
     private $mysql;
@@ -12,7 +13,7 @@ class Artigo
     public function exibirTodos(): array
     {
 
-        $resultado = $this->mysql->query("SELECT id, titulo, conteudo FROM artigos");
+        $resultado = $this->mysql->query("SELECT id, titulo, conteudo, resumo, data, categoria_id, autor_id FROM artigos");
         $artigos = $resultado->fetch_all(MYSQLI_ASSOC);
 
         return $artigos;
@@ -20,18 +21,17 @@ class Artigo
 
     public function encontrePorId(string $id): array
     {
-        $selecionaArtigo = $this->mysql->prepare("SELECT id, titulo, conteudo FROM artigos WHERE id = ?");
-        $selecionaArtigo->bind_param('s', $id);
+        $selecionaArtigo = $this->mysql->prepare("SELECT id, titulo, conteudo, resumo, data, categoria_id, autor_id FROM artigos WHERE id = ?");
         $selecionaArtigo->bind_param('s', $id);
         $selecionaArtigo->execute();
         $artigo = $selecionaArtigo->get_result()->fetch_assoc();
         return $artigo;
     }
 
-    public function adicionar(string $titulo, string $conteudo, string $resumo, string $data): void
+    public function adicionar(string $titulo, string $conteudo, string $resumo, string $data, int $categoria_id, int $autor_id): void
     {
-        $insereArtigo = $this->mysql->prepare('INSERT INTO artigos (titulo, conteudo, resumo, data) VALUES(?,?,?,?);');
-        $insereArtigo->bind_param('ssss', $titulo, $conteudo, $resumo, $data);
+        $insereArtigo = $this->mysql->prepare('INSERT INTO artigos (titulo, conteudo, resumo, data, categoria_id, autor_id) VALUES(?,?,?,?,?,?);');
+        $insereArtigo->bind_param('ssssss', $titulo, $conteudo, $resumo, $data, $categoria_id, $autor_id);
         $insereArtigo->execute();
     }
 
@@ -42,10 +42,10 @@ class Artigo
         $removerArtigo->execute();
     }
 
-    public function editar(string $id, string $titulo, string $conteudo): void
+    public function editar(string $id, string $titulo, string $conteudo, string $resumo, string $data, int $categoria_id, int $autor_id): void
     {
-        $editarArtigo = $this->mysql->prepare('UPDATE artigos SET titulo = ?, conteudo = ? WHERE id = ?');
-        $editarArtigo->bind_param('sss', $titulo, $conteudo, $id);
+        $editarArtigo = $this->mysql->prepare('UPDATE artigos SET titulo = ?, conteudo = ?, resumo = ?, data = ?, categoria_id = ?, autor_id = ? WHERE id = ?');
+        $editarArtigo->bind_param('sssssss', $titulo, $conteudo, $resumo, $data, $categoria_id, $autor_id, $id,);
         $editarArtigo->execute();
     }
 }

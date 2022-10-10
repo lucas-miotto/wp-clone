@@ -3,8 +3,6 @@ require '../../config.php';
 require '../../src/Autor.php';
 require '../../src/redireciona.php';
 
-
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $autor = new Autor($mysql);
     $autor->adicionar($_POST['titulo']);

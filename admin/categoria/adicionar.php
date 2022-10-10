@@ -3,15 +3,12 @@ require '../../config.php';
 require '../../src/Categoria.php';
 require '../../src/redireciona.php';
 
-
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $categoria = new Categoria($mysql);
     $categoria->adicionar($_POST['titulo']);
 
     redireciona('/wp-clone/wp-clone/admin/index.php');
 }
-
 ?>
 
 <!DOCTYPE html>
