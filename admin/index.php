@@ -33,44 +33,38 @@ $autores = $autor->exibirTodos();
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    <a class="nav-link" href="#">Features</a>
-                    <a class="nav-link" href="#">Pricing</a>
-                    <a class="nav-link disabled">Disabled</a>
-                </div>
-            </div>
         </div>
     </nav>
 
     <div id="container">
-        <h1>Artigos</h1>
-        <div>
+        <div class="row align-items-start">
+            <h1>Artigos</h1>
+            <div>
 
-            <?php foreach ($artigos as $art) { ?>
-                <?php $cat = $categoria->encontrePorId($art['categoria_id']); ?>
-                <?php $aut = $autor->encontrePorId($art['autor_id']); ?>
+                <?php foreach ($artigos as $art) { ?>
+                    <?php $cat = $categoria->encontrePorId($art['categoria_id']); ?>
+                    <?php $aut = $autor->encontrePorId($art['autor_id']); ?>
 
-                <div id="artigo-admin">
-                    <img src="../uploads/<?= $art['midia_caminho']; ?>" style="max-width: 150px;" alt="">
-                    <p>
-                        <?php echo $art['titulo']; ?>.
-                        R: <?php echo $art['resumo']; ?>.
-                        Data: <?php if (!empty($art['data'])) echo date('d-m-Y', strtotime($art['data'])); ?>
-                    </p>
-                    <p>
-                        Categoria: <?= $cat['titulo']; ?> <br>
-                        Autor: <?= $aut['titulo']; ?>
-                    </p>
-                    <nav>
-                        <a class="botao" href="artigo/editar.php?id=<?php echo $art['id']; ?>">Editar</a>
-                        <a class="botao" href="artigo/excluir.php?id=<?php echo $art['id']; ?>">Excluir</a>
-                    </nav>
-                </div>
-            <?php } ?>
+                    <div id="artigo-admin">
+                        <img src="../uploads/<?= $art['midia_caminho']; ?>" style="max-width: 150px;" alt="">
+                        <p>
+                            <?php echo $art['titulo']; ?>.
+                            R: <?php echo $art['resumo']; ?>.
+                            Data: <?php if (!empty($art['data'])) echo date('d-m-Y', strtotime($art['data'])); ?>
+                        </p>
+                        <p>
+                            Categoria: <?= $cat['titulo']; ?> <br>
+                            Autor: <?= $aut['titulo']; ?>
+                        </p>
+                        <nav>
+                            <a class="botao" href="artigo/editar.php?id=<?php echo $art['id']; ?>">Editar</a>
+                            <a class="botao" href="artigo/excluir.php?id=<?php echo $art['id']; ?>">Excluir</a>
+                        </nav>
+                    </div>
+                <?php } ?>
+            </div>
+            <a class="botao botao-block" href="artigo/adicionar.php">Adicionar Artigo</a>
         </div>
-        <a class="botao botao-block" href="artigo/adicionar.php">Adicionar Artigo</a>
     </div>
 
     <div id="container">

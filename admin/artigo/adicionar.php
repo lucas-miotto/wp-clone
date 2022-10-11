@@ -27,6 +27,7 @@ $autores = $autor->exibirTodos();
 <html lang="pt-br">
 
 <head>
+    <link rel="stylesheet" type="text/css" href="../../bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../../style.css">
     <meta charset="UTF-8">
     <title>Adicionar Artigo</title>
