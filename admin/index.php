@@ -53,6 +53,7 @@ $autores = $autor->exibirTodos();
                 <?php $aut = $autor->encontrePorId($art['autor_id']); ?>
 
                 <div id="artigo-admin">
+                    <img src="../uploads/<?= $art['midia_caminho']; ?>" style="max-width: 150px;" alt="">
                     <p>
                         <?php echo $art['titulo']; ?>.
                         R: <?php echo $art['resumo']; ?>.

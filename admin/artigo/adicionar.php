@@ -7,7 +7,11 @@ require '../../src/redireciona.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $artigo = new Artigo($mysql);
-    $artigo->adicionar($_POST['titulo'], $_POST['conteudo'], $_POST['resumo'], $_POST['data'], $_POST['categoria_id'], $_POST['autor_id']);
+    $artigo->adicionar($_POST['titulo'], $_POST['conteudo'], $_POST['resumo'], $_POST['data'], $_POST['categoria_id'], $_POST['autor_id'], $_FILES["fileToUpload"]["name"]);
+
+    $target_dir = "../../uploads/";
+    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+    move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
 
     redireciona('/wp-clone/wp-clone/admin/index.php');
 }
@@ -31,7 +35,7 @@ $autores = $autor->exibirTodos();
 <body>
     <div id="container">
         <h1>Adicionar Artigo</h1>
-        <form action="adicionar.php" method="post">
+        <form action="adicionar.php" method="post" enctype="multipart/form-data">
             <p>
                 <label for="">Digite o título do artigo</label>
                 <input class="campo-form" type="text" name="titulo" id="titulo" />
@@ -67,6 +71,10 @@ $autores = $autor->exibirTodos();
                 </select>
             </p>
 
+            <p>
+                <label for="">Selecione a imagem:</label>
+                <input type="file" name="fileToUpload" id="fileToUpload">
+            </p>
             <p>
                 <button class="botao">Criar Artigo</button>
             </p>

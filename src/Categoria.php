@@ -22,7 +22,6 @@ class Categoria
     {
         $selecionaCategoria = $this->mysql->prepare("SELECT id, titulo FROM categorias WHERE id = ?");
         $selecionaCategoria->bind_param('s', $id);
-        $selecionaCategoria->bind_param('s', $id);
         $selecionaCategoria->execute();
         $categoria = $selecionaCategoria->get_result()->fetch_assoc();
         return $categoria;

@@ -7,7 +7,18 @@ require '../../src/redireciona.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $artigo = new Artigo($mysql);
-    $artigo->editar($_POST['id'], $_POST['titulo'], $_POST['conteudo'], $_POST['resumo'], $_POST['data'], $_POST['categoria_id'], $_POST['autor_id']);
+
+    if (empty($_FILES["fileToUpload"]["name"])) {
+        $midia_caminho = $_POST['midia_atual'];
+    } else {
+        $midia_caminho = $_FILES["fileToUpload"]["name"];
+        $target_dir = "../../uploads/";
+        $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+        move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
+    }
+
+    $artigo->editar($_POST['id'], $_POST['titulo'], $_POST['conteudo'], $_POST['resumo'], $_POST['data'], $_POST['categoria_id'], $_POST['autor_id'], $midia_caminho);
+
     redireciona('/wp-clone/wp-clone/admin/index.php');
 }
 
@@ -33,7 +44,7 @@ $autores = $autor->exibirTodos();
 <body>
     <div id="container">
         <h1>Editar Artigo</h1>
-        <form action="editar.php" method="post">
+        <form action="editar.php" method="post" enctype="multipart/form-data">
             <p>
                 <label for="titulo">Digite o novo título do artigo</label>
                 <input class="campo-form" type="text" name="titulo" id="titulo" value="<?php echo $art['titulo']; ?>" />
@@ -68,6 +79,13 @@ $autores = $autor->exibirTodos();
                         <option value="<?= $aut['id']; ?>" <?php if ($aut['id'] == $art['autor_id']) { ?> selected <?php } ?>><?= $aut['titulo']; ?> </option>
                     <?php } ?>
                 </select>
+            </p>
+
+            <p>
+                <label for="">Selecione a imagem:</label>
+                <input type="file" name="fileToUpload" id="fileToUpload"> <br>
+                <img src="../../uploads/<?= $art['midia_caminho']; ?>" style="max-width: 150px;" alt="">
+                <input type="hidden" name="midia_atual" id="midia_atual" value="<?= $art['midia_caminho']; ?>" />
             </p>
 
             <p>
